@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.dazz.mytodo.ui.home.DashboardFragment"
+        android:name="com.dazz.mytodo.ui.dashboard.DashboardFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.dazz.mytodo.ui.gallery.GalleryFragment"
+        android:name="com.dazz.mytodo.ui.allTasks.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 

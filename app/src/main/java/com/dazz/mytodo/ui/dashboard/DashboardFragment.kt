@@ -1,23 +1,26 @@
-package com.dazz.mytodo.ui.home
+package com.dazz.mytodo.ui.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.dazz.mytodo.R
+import androidx.fragment.app.activityViewModels
+import com.dazz.mytodo.TaskApplication
 import com.dazz.mytodo.databinding.FragmentHomeBinding
+import com.dazz.mytodo.models.TodoViewModel
+import com.dazz.mytodo.models.TodoViewModelFactory
+import java.util.*
 
 class DashboardFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
+    private val sharedViewModel: TodoViewModel by activityViewModels{
+        TodoViewModelFactory(
+            (activity?.application as TaskApplication).database.taskDao()
+        )
+    }
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -25,17 +28,10 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        return binding.root
     }
 
     override fun onDestroyView() {

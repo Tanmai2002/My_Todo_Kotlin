@@ -32,8 +32,7 @@ class DashboardFragment : Fragment() {
     ): View? {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val action =DashboardFragmentDirections.actionNavHomeToAddTaskFragment()
-        findNavController().navigate(action)
+
         return binding.root
     }
 

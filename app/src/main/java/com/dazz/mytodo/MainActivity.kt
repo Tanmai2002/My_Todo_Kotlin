@@ -11,7 +11,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.ActionOnlyNavDirections
 import com.dazz.mytodo.databinding.ActivityMainBinding
+import com.dazz.mytodo.ui.dashboard.DashboardFragmentDirections
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,11 +27,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)
-
-        binding.appBarMain.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
@@ -42,6 +39,10 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        binding.appBarMain.fab.setOnClickListener { view ->
+            navController.navigate(R.id.addTaskFragment)
+
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

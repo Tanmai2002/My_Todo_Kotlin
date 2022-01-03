@@ -8,13 +8,21 @@ import kotlinx.coroutines.launch
 import java.sql.Date
 
 class TodoViewModel(private  val taskDao: TaskDao) : ViewModel() {
-    private var allItems=taskDao.getAllTasks().asLiveData()
+     val allItems : LiveData<List<Task>> =taskDao.getAllTasks().asLiveData()
+
     fun retrieveTask(id :Long) : LiveData<Task>{
         return taskDao.getTask(id).asLiveData()
     }
     fun insertTask(task : Task){
         viewModelScope.launch{
             taskDao.insertTask(task)
+
+        }
+
+    }
+    fun deleteTask(task : Task){
+        viewModelScope.launch{
+            taskDao.deleteTask(task)
         }
     }
     fun updateTask(task : Task){

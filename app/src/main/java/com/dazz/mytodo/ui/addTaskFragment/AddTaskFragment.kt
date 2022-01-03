@@ -67,6 +67,7 @@ class AddTaskFragment : Fragment() {
             ,SDate.value!!,EDate.value!!,Type.value!!)
 //        findNavController().popBackStack()
         resetAll()
+        findNavController().navigateUp()
     }
     /**
      *State 0:StartDate
@@ -123,6 +124,9 @@ class AddTaskFragment : Fragment() {
         }
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding=null
+    }
 
 }

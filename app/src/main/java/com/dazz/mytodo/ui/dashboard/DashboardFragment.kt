@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.dazz.mytodo.TaskApplication
+import com.dazz.mytodo.databinding.FragmentAddTaskBinding
 import com.dazz.mytodo.databinding.FragmentHomeBinding
 import com.dazz.mytodo.models.TodoViewModel
 import com.dazz.mytodo.models.TodoViewModelFactory
@@ -30,7 +32,8 @@ class DashboardFragment : Fragment() {
     ): View? {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
+        val action =DashboardFragmentDirections.actionNavHomeToAddTaskFragment()
+        findNavController().navigate(action)
         return binding.root
     }
 

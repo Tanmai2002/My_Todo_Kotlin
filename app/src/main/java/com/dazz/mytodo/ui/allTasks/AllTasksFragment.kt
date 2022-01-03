@@ -6,15 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.dazz.mytodo.TaskApplication
 import com.dazz.mytodo.databinding.FragmentGalleryBinding
 import com.dazz.mytodo.models.TodoViewModel
+import com.dazz.mytodo.models.TodoViewModelFactory
 import java.sql.Date
 
 class GalleryFragment : Fragment() {
 
     private var _binding: FragmentGalleryBinding? = null
-    private val sharedViewModel : TodoViewModel by activityViewModels()
-
+    private val sharedViewModel: TodoViewModel by activityViewModels{
+        TodoViewModelFactory(
+            (activity?.application as TaskApplication).database.taskDao()
+        )
+    }
     private val binding get() = _binding!!
 
     override fun onCreateView(

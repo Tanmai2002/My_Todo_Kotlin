@@ -5,11 +5,11 @@ import java.sql.Date
 
 class TodoTypeConverter {
 @TypeConverter
-fun DateToLong(date : Date) : Long{
-    return DateToLong(date)
+fun DateToLong(date : Date) : String{
+    return date.toString()
 }
     @TypeConverter
-    fun LongToDate(long: Long) :Date{
-        return Date(long)
+    fun LongToDate(long: String) :Date{
+        return Date.valueOf(long)
     }
 }

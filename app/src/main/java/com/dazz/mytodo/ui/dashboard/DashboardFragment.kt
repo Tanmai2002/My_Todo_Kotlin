@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dazz.mytodo.TaskApplication
+import com.dazz.mytodo.adapters.DashBoardAdapter
 import com.dazz.mytodo.databinding.FragmentAddTaskBinding
 import com.dazz.mytodo.databinding.FragmentHomeBinding
 import com.dazz.mytodo.models.TodoViewModel
@@ -15,7 +18,7 @@ import com.dazz.mytodo.models.TodoViewModelFactory
 import java.util.*
 
 class DashboardFragment : Fragment() {
-
+    lateinit var adapter :DashBoardAdapter
     private var _binding: FragmentHomeBinding? = null
     private val sharedViewModel: TodoViewModel by activityViewModels{
         TodoViewModelFactory(
@@ -38,12 +41,25 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        adapter=DashBoardAdapter(sharedViewModel){}
+        adapter.submitList(sharedViewModel.allItemsToday.value)
         _binding!!.apply {
             viewModel=sharedViewModel
             lifecycleOwner=viewLifecycleOwner
             dashFrag=this@DashboardFragment
+
         }
+        binding.dashboardTaskList.adapter=adapter
+        sharedViewModel.allItemsToday.observe(viewLifecycleOwner){
+            it.let {
+                adapter.submitList(it)
+            }
+        }
+
+
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

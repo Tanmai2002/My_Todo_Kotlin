@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ import com.dazz.mytodo.models.TodoViewModelFactory
 import java.util.*
 
 class DashboardFragment : Fragment() {
-    lateinit var adapter :DashBoardAdapter
+    val choice : MutableLiveData<Int> =MutableLiveData(1)
     private var _binding: FragmentHomeBinding? = null
     private val sharedViewModel: TodoViewModel by activityViewModels{
         TodoViewModelFactory(
@@ -35,31 +36,23 @@ class DashboardFragment : Fragment() {
     ): View? {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
+        _binding!!.apply {
+            viewModel=sharedViewModel
+            lifecycleOwner=viewLifecycleOwner
+            dashFrag=this@DashboardFragment
+            dashboardTaskList.adapter=DashBoardAdapter(sharedViewModel){}
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter=DashBoardAdapter(sharedViewModel){}
-        adapter.submitList(sharedViewModel.allItemsToday.value)
-        _binding!!.apply {
-            viewModel=sharedViewModel
-            lifecycleOwner=viewLifecycleOwner
-            dashFrag=this@DashboardFragment
-
-        }
-        binding.dashboardTaskList.adapter=adapter
-        sharedViewModel.allItemsToday.observe(viewLifecycleOwner){
-            it.let {
-                adapter.submitList(it)
-            }
-        }
-
 
     }
-
+fun setChoice(i :Int){
+    choice.value=i
+}
 
     override fun onDestroyView() {
         super.onDestroyView()

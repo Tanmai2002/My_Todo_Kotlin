@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/myimage"
+        android:onClick="@{()->dashFrag.setChoice(1)}"
         android:scaleType="centerCrop"
         android:layout_width="150dp"
         android:layout_margin="20dp"
@@ -33,6 +34,7 @@
         android:layout_margin="20dp"
         android:scaleType="centerCrop"
         android:src="@drawable/calendar"
+        android:onClick="@{()->dashFrag.setChoice(2)}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/dashboard_do_it_today_Button"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,6 +45,7 @@
         android:layout_margin="20dp"
         android:scaleType="centerCrop"
         android:src="@drawable/success"
+        android:onClick="@{()->dashFrag.setChoice(3)}"
         app:layout_constraintEnd_toStartOf="@+id/dashboard_do_it_month_Button"
         app:layout_constraintStart_toEndOf="@+id/dashboard_do_it_today_Button"
         app:layout_constraintTop_toBottomOf="@+id/dashboard_do_it_today_Button" />
@@ -65,11 +68,16 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:scrollbars="vertical"
+
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/dashboard_list_item"
             app:layout_constraintTop_toBottomOf="@+id/dashboard_today_task_title"
             app:layout_constraintEnd_toEndOf="@+id/dashboard_today_task_title"
-            app:layout_constraintStart_toStartOf="@+id/dashboard_today_task_title"/>
+            app:layout_constraintStart_toStartOf="@+id/dashboard_today_task_title"
+            app:taskList1="@{viewModel.allItemsToday}"
+            app:taskList2="@{viewModel.allItemsMonth}"
+            app:taskList3="@{viewModel.allItemsYear}"
+            app:choice="@{dashFrag.choice}"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

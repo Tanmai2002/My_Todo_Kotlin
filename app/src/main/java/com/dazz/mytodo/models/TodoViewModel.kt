@@ -11,7 +11,7 @@ import java.time.LocalDate
 class TodoViewModel(private  val taskDao: TaskDao) : ViewModel() {
     private val today=Date.valueOf(LocalDate.now().toString())
      val allItems : LiveData<List<Task>> =taskDao.getAllTasks().asLiveData()
-    val allItemsToday : LiveData<List<Task>> =taskDao.getAllTaskToday(today).asLiveData()
+    val allItemsToday : LiveData<List<Task>> get()=taskDao.getAllTaskToday(today).asLiveData()
     val allItemsMonth : LiveData<List<Task>> =taskDao.getAllTaskMonth(today).asLiveData()
     val allItemsYear : LiveData<List<Task>> =taskDao.getAllTaskYear(today).asLiveData()
 

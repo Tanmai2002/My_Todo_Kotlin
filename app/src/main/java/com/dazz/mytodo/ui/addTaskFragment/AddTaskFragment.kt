@@ -19,7 +19,8 @@ import com.dazz.mytodo.models.TodoViewModel
 import com.dazz.mytodo.models.TodoViewModelFactory
 import java.sql.Date
 import java.text.SimpleDateFormat
-import java.util.*
+import java.time.LocalDate
+import java.util.Calendar
 
 
 class AddTaskFragment : Fragment() {
@@ -55,6 +56,24 @@ class AddTaskFragment : Fragment() {
             addTaskFrag=this@AddTaskFragment
             lifecycleOwner=viewLifecycleOwner
 
+        }
+        SDate.observe(viewLifecycleOwner){
+            when{
+                Type.value==l.get(0)->_EDAte.value=it
+                Type.value==l.get(1)->_EDAte.value=it
+                Type.value==l.get(2)->{
+
+                    var v : Long =(it.time as Long)
+
+                    v=v+30L*24L*60L*60L*1000L
+                    _EDAte.value=Date(v)
+                }
+                Type.value==l.get(3)->{
+                    var v : Long =(it.time as Long)
+                    v=v+30L*24L*60L*60L*365L*1000L
+                    _EDAte.value=Date(v)
+            }
+            }
         }
         resetAll()
     }
@@ -100,10 +119,11 @@ class AddTaskFragment : Fragment() {
 
         }
     private  fun resetAll(){
+
         _binding!!.addTaskTitle.setText("")
         _binding!!.addTaskDesc.setText("")
-        _EDAte.value= Date.valueOf("2002-02-02")
-        _SDAte.value= Date.valueOf("2002-02-02")
+        _EDAte.value= Date.valueOf(LocalDate.now().toString())
+        _SDAte.value= Date.valueOf(LocalDate.now().toString())
         _Type.value=l.get(0)
         val adaptera =ArrayAdapter<String>(requireContext(),R.layout.support_simple_spinner_dropdown_item,l)
         _binding!!.addTaskType.adapter=adaptera
@@ -115,6 +135,7 @@ class AddTaskFragment : Fragment() {
                 id: Long
             ) {
                 _Type.value=l.get(position)
+                _SDAte.value= Date.valueOf(_SDAte.value.toString())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

@@ -25,3 +25,4 @@ fun eDAteVisibility(textView: View,boolean: Boolean){
         textView.visibility = View.INVISIBLE
     }
 }
+

@@ -20,4 +20,5 @@
     <string name="type">Type</string>
     <string name="add_task">Add Task</string>
     <string name="tasks">Tasks</string>
+    <string name="tasks_today">Tasks Today</string>
 </resources>

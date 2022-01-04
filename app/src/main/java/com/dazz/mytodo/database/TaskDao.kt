@@ -27,4 +27,7 @@ interface TaskDao {
     fun getAllTaskMonth(date: Date) :Flow<List<Task>>
     @Query("Select * From tasks Where (`Start Date`<=:date and `End Date`>=:date and Type='Year') order by `Start Date`")
     fun getAllTaskYear(date: Date) :Flow<List<Task>>
+
+    @Query("Update tasks Set Done=:b where id=:id")
+    suspend fun chengeDone(id: Long, b: Boolean)
 }

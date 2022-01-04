@@ -36,6 +36,11 @@ class TodoViewModel(private  val taskDao: TaskDao) : ViewModel() {
             taskDao.updateTask(task)
         }
     }
+    fun changeStatus(id : Long,b : Boolean){
+        viewModelScope.launch {
+            taskDao.chengeDone(id,b)
+        }
+    }
     private fun makeNewTask(title :String,Desc :String ,Sdate :Date,Edate :Date,Type :String) :Task{
         return Task(start_date = Sdate,end_date = Edate,title = title,desc = Desc,type = Type)
     }

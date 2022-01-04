@@ -1,6 +1,8 @@
 package com.dazz.mytodo.adapters
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContentProviderCompat.requireContext
@@ -22,7 +24,6 @@ class DashBoardAdapter(private val viewModel: TodoViewModel, private  val onItem
         myTask=task
         binding.apply {
             taskName.text=task.title
-
         }
     }
     }
@@ -37,6 +38,12 @@ class DashBoardAdapter(private val viewModel: TodoViewModel, private  val onItem
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val v:Task=getItem(position)
         holder.bind(v)
+        holder.binding.checkOption.setOnClickListener{
+            viewModel.changeStatus(v.id,!v.done)
+
+        }
+        val col=if(v.done) R.color.green else R.color.red
+        holder.binding.backLayout.setBackgroundResource(col)
 
     }
 

@@ -80,6 +80,7 @@
            android:layout_marginStart="10dp"
            android:src="@drawable/ic_baseline_date_range_24"
            android:textAlignment="center"
+           app:endDateVisibility="@{addTaskFrag._Type==addTaskFrag.l.get(1)}"
            app:layout_constraintBottom_toBottomOf="@+id/add_task_start_date_icon"
            app:layout_constraintStart_toEndOf="@id/add_task_start_date" />
 
@@ -96,6 +97,7 @@
            app:layout_constraintBottom_toBottomOf="@+id/add_task_end_date_icon"
            app:layout_constraintStart_toEndOf="@id/add_task_end_date_icon"
            app:layout_constraintTop_toTopOf="@+id/add_task_end_date_icon"
+           app:endDateVisibility="@{addTaskFrag.type.equals(addTaskFrag.l.get(1))}"
            app:setDate="@{addTaskFrag.EDate}"/>
        <TextView
            android:id="@+id/add_task_tv"

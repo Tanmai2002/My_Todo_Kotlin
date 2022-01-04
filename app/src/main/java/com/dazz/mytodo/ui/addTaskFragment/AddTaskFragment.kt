@@ -27,11 +27,11 @@ class AddTaskFragment : Fragment() {
     private  var _binding : FragmentAddTaskBinding?= null
     private val binding get() = _binding!!
 
-    var _SDAte =MutableLiveData<Date>(Date.valueOf("2002-02-02"))
+    var _SDAte =MutableLiveData<Date>()
     var SDate : LiveData<Date>  =_SDAte
-    var _EDAte =MutableLiveData<Date>(Date.valueOf("2002-02-02"))
+    var _EDAte =MutableLiveData<Date>()
     val EDate : LiveData<Date>  =_EDAte
-    var _Type =MutableLiveData<String>("")
+    var _Type =MutableLiveData<String>()
     var Type :LiveData<String> =_Type
     val l= listOf<String>("Once","Daily","Month","Year")
     private val sharedViewModel: TodoViewModel by activityViewModels{
@@ -81,7 +81,7 @@ class AddTaskFragment : Fragment() {
             myCalendar.set(Calendar.MONTH, monthOfYear)
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             val s :String="${year}-${monthOfYear+1}-${dayOfMonth}"
-            Toast.makeText(requireContext(),s,Toast.LENGTH_LONG).show()
+//            Toast.makeText(requireContext(),s,Toast.LENGTH_LONG).show()
             val d=Date.valueOf(s)
 
             if(state==0){
@@ -104,7 +104,7 @@ class AddTaskFragment : Fragment() {
         _binding!!.addTaskDesc.setText("")
         _EDAte.value= Date.valueOf("2002-02-02")
         _SDAte.value= Date.valueOf("2002-02-02")
-
+        _Type.value=l.get(0)
         val adaptera =ArrayAdapter<String>(requireContext(),R.layout.support_simple_spinner_dropdown_item,l)
         _binding!!.addTaskType.adapter=adaptera
         _binding!!.addTaskType.onItemSelectedListener=object :AdapterView.OnItemSelectedListener{

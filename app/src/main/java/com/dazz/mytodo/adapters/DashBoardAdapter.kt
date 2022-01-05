@@ -19,12 +19,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class DashBoardAdapter(private val viewModel: TodoViewModel, private  val onItemClicked :(Task)->Unit) : ListAdapter<Task,DashBoardAdapter.MyViewHolder>(DiffCallback) {
     class MyViewHolder(val binding : DashboardListItemBinding) : RecyclerView.ViewHolder(binding.root){
-        lateinit var myTask :Task
         fun bind( task :Task ){
-        myTask=task
-        binding.apply {
-            taskName.text=task.title
-        }
+        binding.task=task
+
     }
     }
 
@@ -38,12 +35,8 @@ class DashBoardAdapter(private val viewModel: TodoViewModel, private  val onItem
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val v:Task=getItem(position)
         holder.bind(v)
-        holder.binding.checkOption.setOnClickListener{
-            viewModel.changeStatus(v.id,!v.done)
+        holder.binding.viewModel=viewModel
 
-        }
-        val col=if(v.done) R.color.green else R.color.red
-        holder.binding.backLayout.setBackgroundResource(col)
 
     }
 

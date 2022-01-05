@@ -49,14 +49,9 @@ class AllTasksFragment : Fragment() {
 
         }
         val adapter= AllTasksViewAdapter(sharedViewModel){
-            Log.d("TASKNAME",it.title)
+
         }
         _binding!!.listTaskRV.adapter=adapter
-        sharedViewModel.allItems.observe(viewLifecycleOwner){
-            it.let {
-                adapter.submitList(it)
-            }
-        }
 
         _binding!!.listTaskRV.layoutManager=LinearLayoutManager(this.context)
 

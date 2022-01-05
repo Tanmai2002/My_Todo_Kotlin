@@ -16,15 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AllTasksViewAdapter(private val viewModel: TodoViewModel,private  val onItemClicked :(Task)->Unit) : ListAdapter<Task,AllTasksViewAdapter.MyViewHolder>(DiffCallback) {
     class MyViewHolder(val binding : TaskListTaskBinding) : RecyclerView.ViewHolder(binding.root){
-        lateinit var myTask :Task
-        fun bind( task :Task ){
-        myTask=task
-        binding.apply {
-            taskItemTitle.text=task.title
-            taskItemSDate.text=task.start_date.toString()
-            taskItemEDate.text=task.end_date.toString()
-        }
-    }
+
     }
 
     lateinit var con :Context
@@ -38,7 +30,7 @@ class AllTasksViewAdapter(private val viewModel: TodoViewModel,private  val onIt
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val v:Task=getItem(position)
-        holder.bind(v)
+        holder.binding.myTask=v
         holder.binding.imageButton.setOnClickListener{
             MaterialAlertDialogBuilder(con)
                 .setTitle("Are You Sure to Delete")
@@ -46,7 +38,7 @@ class AllTasksViewAdapter(private val viewModel: TodoViewModel,private  val onIt
                 .setCancelable(false)
                 .setNegativeButton("NO") { _, _ -> }
                 .setPositiveButton("YES") { _, _ ->
-                    viewModel.deleteTask(holder.myTask)
+                    viewModel.deleteTask(v)
                 }
                 .show()
         }

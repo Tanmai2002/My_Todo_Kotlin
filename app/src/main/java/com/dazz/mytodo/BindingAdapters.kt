@@ -37,3 +37,9 @@ fun bindTaskList(recyclerView: RecyclerView,list1: List<Task>?,list2: List<Task>
     }
 }
 
+@BindingAdapter("AlltaskList1")
+fun bindALlTaskList(recyclerView: RecyclerView,list1: List<Task>?){
+    val adapter= recyclerView.adapter as AllTasksViewAdapter
+    adapter.submitList(list1)
+}
+

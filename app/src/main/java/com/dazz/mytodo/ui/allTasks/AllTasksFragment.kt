@@ -9,13 +9,16 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dazz.mytodo.TaskApplication
 import com.dazz.mytodo.adapters.AllTasksViewAdapter
+import com.dazz.mytodo.database.Task
 import com.dazz.mytodo.databinding.FragmentGalleryBinding
 import com.dazz.mytodo.models.TodoViewModel
 import com.dazz.mytodo.models.TodoViewModelFactory
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.sql.Date
 
 class AllTasksFragment : Fragment() {
@@ -48,13 +51,31 @@ class AllTasksFragment : Fragment() {
 
 
         }
-        val adapter= AllTasksViewAdapter(sharedViewModel){
 
-        }
+        val adapter= AllTasksViewAdapter(
+            {
+                confirmAndDelete(it)
+            }   ,
+            {
+                val action =AllTasksFragmentDirections.actionNavGalleryToViewTaskFragment(it.id)
+                findNavController().navigate(action)
+            }
+        )
         _binding!!.listTaskRV.adapter=adapter
 
         _binding!!.listTaskRV.layoutManager=LinearLayoutManager(this.context)
 
+    }
+    private fun confirmAndDelete(v :Task){
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Are You Sure to Delete")
+            .setMessage("Your Task will be deleted Forever")
+            .setCancelable(false)
+            .setNegativeButton("NO") { _, _ -> }
+            .setPositiveButton("YES") { _, _ ->
+                sharedViewModel.deleteTask(v)
+            }
+            .show()
     }
 
     override fun onDestroyView() {

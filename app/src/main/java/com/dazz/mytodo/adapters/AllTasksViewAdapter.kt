@@ -14,7 +14,7 @@ import com.dazz.mytodo.databinding.TaskListTaskBinding
 import com.dazz.mytodo.models.TodoViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class AllTasksViewAdapter(private val viewModel: TodoViewModel,private  val onItemClicked :(Task)->Unit) : ListAdapter<Task,AllTasksViewAdapter.MyViewHolder>(DiffCallback) {
+class AllTasksViewAdapter(private val onDelete :(Task)->Unit,private  val onItemClicked :(Task)->Unit) : ListAdapter<Task,AllTasksViewAdapter.MyViewHolder>(DiffCallback) {
     class MyViewHolder(val binding : TaskListTaskBinding) : RecyclerView.ViewHolder(binding.root){
 
     }
@@ -32,15 +32,10 @@ class AllTasksViewAdapter(private val viewModel: TodoViewModel,private  val onIt
         val v:Task=getItem(position)
         holder.binding.myTask=v
         holder.binding.imageButton.setOnClickListener{
-            MaterialAlertDialogBuilder(con)
-                .setTitle("Are You Sure to Delete")
-                .setMessage("Your Task will be deleted Forever")
-                .setCancelable(false)
-                .setNegativeButton("NO") { _, _ -> }
-                .setPositiveButton("YES") { _, _ ->
-                    viewModel.deleteTask(v)
-                }
-                .show()
+            onDelete(v)
+        }
+        holder.binding.taskItemContainer.setOnClickListener{
+            onItemClicked(v)
         }
     }
 

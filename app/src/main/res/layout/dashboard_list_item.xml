@@ -40,7 +40,7 @@
             android:id="@+id/checkOption"
             android:layout_width="wrap_content"
             android:onClick="@{()->viewModel.changeStatus(task.id,!task.done)}"
-            android:src="@drawable/ic_baseline_check_box_24"
+            android:src="@{task.done?@drawable/ic_baseline_check_box_24:@drawable/ic_baseline_indeterminate_check_box_24}"
             android:layout_height="wrap_content"/>
     </LinearLayout>
     </androidx.cardview.widget.CardView>

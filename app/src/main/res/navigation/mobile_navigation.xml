@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_nav_home_to_addTaskFragment"
             app:destination="@id/addTaskFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_viewTaskFragment"
+            app:destination="@id/viewTaskFragment" />
     </fragment>
 
     <fragment
@@ -31,4 +34,14 @@
         android:name="com.dazz.mytodo.ui.addTaskFragment.AddTaskFragment"
         android:label="fragment_add_task"
         tools:layout="@layout/fragment_add_task" />
+    <fragment
+        android:id="@+id/viewTaskFragment"
+        android:name="com.dazz.mytodo.ui.viewtask.ViewTaskFragment"
+        android:label="fragment_view_task"
+        tools:layout="@layout/fragment_view_task" >
+        <argument
+            android:name="task_id"
+            app:argType="long"
+            android:defaultValue="1L" />
+    </fragment>
 </navigation>

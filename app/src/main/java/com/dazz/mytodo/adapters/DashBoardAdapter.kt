@@ -19,22 +19,18 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class DashBoardAdapter(private val viewModel: TodoViewModel, private  val onItemClicked :(Task)->Unit) : ListAdapter<Task,DashBoardAdapter.MyViewHolder>(DiffCallback) {
     class MyViewHolder(val binding : DashboardListItemBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind( task :Task ){
-        binding.task=task
 
     }
-    }
 
-    lateinit var con :Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        con=parent.context
+
         val root=DashboardListItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
             return MyViewHolder(root)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val v:Task=getItem(position)
-        holder.bind(v)
+        holder.binding.task=v
         holder.binding.viewModel=viewModel
 
 

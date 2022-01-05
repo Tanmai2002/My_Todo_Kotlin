@@ -40,7 +40,10 @@ class DashboardFragment : Fragment() {
             viewModel=sharedViewModel
             lifecycleOwner=viewLifecycleOwner
             dashFrag=this@DashboardFragment
-            dashboardTaskList.adapter=DashBoardAdapter(sharedViewModel){}
+            dashboardTaskList.adapter=DashBoardAdapter(sharedViewModel){
+                val action=DashboardFragmentDirections.actionNavHomeToViewTaskFragment(it.id)
+                findNavController().navigate(action)
+            }
         }
         return binding.root
     }

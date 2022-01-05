@@ -39,9 +39,9 @@
         android:name="com.dazz.mytodo.ui.viewtask.ViewTaskFragment"
         android:label="fragment_view_task"
         tools:layout="@layout/fragment_view_task" >
+
         <argument
-            android:name="task_id"
-            app:argType="long"
-            android:defaultValue="1L" />
+            android:name="taskid"
+            app:argType="long" />
     </fragment>
 </navigation>

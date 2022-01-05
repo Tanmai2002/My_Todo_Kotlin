@@ -32,6 +32,9 @@ class DashBoardAdapter(private val viewModel: TodoViewModel, private  val onItem
         val v:Task=getItem(position)
         holder.binding.task=v
         holder.binding.viewModel=viewModel
+        holder.binding.backLayout.setOnClickListener{
+            onItemClicked(v)
+        }
 
 
     }

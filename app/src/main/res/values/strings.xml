@@ -22,4 +22,6 @@
     <string name="tasks">Tasks</string>
     <string name="tasks_today">Tasks Today</string>
     <string name="status">Status</string>
+    <string name="add_task_text">Add a Task</string>
+    <string name="view_task">View Task</string>
 </resources>

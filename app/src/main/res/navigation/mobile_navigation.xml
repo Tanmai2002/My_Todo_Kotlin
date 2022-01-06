@@ -36,12 +36,13 @@
     <fragment
         android:id="@+id/addTaskFragment"
         android:name="com.dazz.mytodo.ui.addTaskFragment.AddTaskFragment"
-        android:label="fragment_add_task"
+        android:label="string/add_task_text"
         tools:layout="@layout/fragment_add_task" />
     <fragment
         android:id="@+id/viewTaskFragment"
         android:name="com.dazz.mytodo.ui.viewtask.ViewTaskFragment"
-        android:label="fragment_view_task"
+        android:label="@string/view_task"
+
         tools:layout="@layout/fragment_view_task" >
 
         <argument

@@ -75,6 +75,8 @@ class AddTaskFragment : Fragment() {
             }
             }
         }
+
+
         resetAll()
     }
     fun submitTask(){

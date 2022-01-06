@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.*
 import androidx.room.TypeConverter
 
-@Database(entities = [Task::class],version =1,exportSchema = false)
+@Database(entities = [Task::class,TaskStatus::class],version =2,exportSchema = false)
 @TypeConverters(value = [TodoTypeConverter::class])
 abstract class TaskDatabase : RoomDatabase() {
     abstract fun taskDao() : TaskDao
@@ -17,7 +17,7 @@ abstract class TaskDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     TaskDatabase::class.java,
-                    "task_database2"
+                    "task_database3"
                 )
                     .fallbackToDestructiveMigration()
                     .build()

@@ -9,8 +9,14 @@ interface TaskDao {
     @Query("Select * From tasks order by `Start Date` asc")
     fun getAllTasks() :Flow<List<Task>>
 
+    @Query("Select * From tasks where type='Daily' and id not in (select distinct taskId from dailyTaskStatus)")
+    fun getAllTasksWithDailyNotSet() :Flow<List<Task>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTask(task :Task)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertStatusDaily(taskStatus: TaskStatus)
 
     @Update
     suspend fun updateTask(task :Task)
@@ -30,4 +36,8 @@ interface TaskDao {
 
     @Query("Update tasks Set Done=:b where id=:id")
     suspend fun chengeDone(id: Long, b: Boolean)
+
+    @Query("Update dailyTaskStatus Set Status=:b where taskId=:id and Date=:d")
+    suspend fun chengeDailyDone(id: Long, b: Boolean,d:Date)
+
 }

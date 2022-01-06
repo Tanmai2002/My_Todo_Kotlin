@@ -118,6 +118,7 @@
         android:textColor="@color/white"
         android:background="@{viewFrag.myTask.done? @color/green : @color/red}"
         tools:background="@color/red"
+        android:onClick="@{()->viewModel.changeStatus(viewFrag.myTask)}"
         android:text="@string/status"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

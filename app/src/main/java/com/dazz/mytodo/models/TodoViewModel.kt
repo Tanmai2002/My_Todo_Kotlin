@@ -59,7 +59,8 @@ class TodoViewModel(private  val taskDao: TaskDao) : ViewModel() {
             taskDao.updateTask(task)
         }
     }
-    fun changeStatus(id : Task,b : Boolean){
+    fun changeStatus(id : Task){
+        val b:Boolean=!id.done
         viewModelScope.launch {
 
                 taskDao.chengeDone(id.id, b)

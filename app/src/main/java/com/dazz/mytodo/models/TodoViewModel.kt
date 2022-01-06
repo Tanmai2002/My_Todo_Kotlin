@@ -19,26 +19,7 @@ class TodoViewModel(private  val taskDao: TaskDao) : ViewModel() {
     val allItemsMonth : LiveData<List<Task>> =taskDao.getAllTaskMonth(today).asLiveData()
     val allItemsYear : LiveData<List<Task>> =taskDao.getAllTaskYear(today).asLiveData()
     private val l=taskDao.getAllTasksWithDailyNotSet().asLiveData()
-    init {
-        l.observeForever{
-            if(l.value!=null)
-            l.value?.let {
-                for(i in it){
-                    val cal=Calendar.getInstance()
-                    cal.time=Date.valueOf(i.start_date.toString())
-                    while(cal.time.before(i.end_date)) {
-                        val mydat =cal.time as java.util.Date
-                        val mydat2=Date(mydat.time)
-                        val ts = TaskStatus(0,i.id,mydat2,false)
-                        viewModelScope.launch{
-                            taskDao.insertStatusDaily(ts)
-                        }
-                        cal.add(Calendar.DATE,1)
-                    }
-                }
-            }
-        }
-    }
+
 
     fun retrieveTask(id :Long) : LiveData<Task>{
         return taskDao.getTask(id).asLiveData()
@@ -46,11 +27,24 @@ class TodoViewModel(private  val taskDao: TaskDao) : ViewModel() {
     fun insertTask(task : Task){
         viewModelScope.launch{
             val v=taskDao.insertTask(task)
-            makeStatusids()
+            val tTAsk=task.copy(id=v)
+            makeStatusids(tTAsk)
                 }
         }
-    fun makeStatusids(){
+    fun makeStatusids(i : Task){
 
+            val cal=Calendar.getInstance()
+            cal.time=Date.valueOf(i.start_date.toString())
+            while(cal.time.before(i.end_date)) {
+                val mydat =cal.time as java.util.Date
+                val mydat2=Date(mydat.time)
+                val ts = TaskStatus(0,i.id,mydat2,false)
+                viewModelScope.launch{
+                    taskDao.insertStatusDaily(ts)
+                }
+                cal.add(Calendar.DATE,1)
+
+        }
 
     }
 
@@ -67,12 +61,11 @@ class TodoViewModel(private  val taskDao: TaskDao) : ViewModel() {
     }
     fun changeStatus(id : Task,b : Boolean){
         viewModelScope.launch {
-            if(!id.type.equals("Daily")) {
+
                 taskDao.chengeDone(id.id, b)
-            }else{
+            if(id.type.equals("Daily")) {
                 val date :Date= Date.valueOf(LocalDate.now().toString())
                 taskDao.chengeDailyDone(id.id, b,date)
-
             }
         }
     }

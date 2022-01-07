@@ -6,6 +6,12 @@ One of the basic requirements of a person is to set daily ,yearly and monthly go
 # Solution
 An app that has list of all things that you have to do, biforcated as  on that day ,daily , monthly , yearly tasks.
 
+
+# Some Images
+![Screenshot](readmeImg/image_2022-01-07_152800.png)
+![Screenshot](readmeImg/image_2022-01-07_152814.png)
+![Screenshot](readmeImg/image_2022-01-07_152825.png)
+![Screenshot](readmeImg/image_2022-01-07_152842.png)
 # Functionaliy and topics used:
 
 ### Constraint Layout

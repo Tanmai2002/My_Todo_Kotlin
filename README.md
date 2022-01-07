@@ -23,11 +23,14 @@ Live data is used to update realtime values and thus update the ui. Using Live d
 ### View Binding
 Some places where data binding seems tedious view binding is used.
 
-###Room Database
+### Room Database
 All the information of task and their status is stored in room database. I have created 2 database :
 1: To store all types of tasks and status for each task
 2: To store status for daily tasks
 
-##
+## Future Scope
+I plan to include various features like import and export of db of task so that user can easily share thier task todo. 
+I also plan to make ui more interactive and interesting.
+I also plan to display logs on the database with charts and diagrams so that user can get a pictorial view of the same.
 
 
